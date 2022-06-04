@@ -93,9 +93,10 @@ GameObject:
   - component: {fileID: 8801963760801677903}
   - component: {fileID: 6756010967934629509}
   - component: {fileID: 8948483646598003388}
+  - component: {fileID: -3466673935669967274}
   m_Layer: 0
   m_Name: prefab_CannonTower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,3 +191,16 @@ MonoBehaviour:
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!135 &-3466673935669967274
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5098866830362892112}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.49999997
+  m_Center: {x: 0, y: 0.26043507, z: 0}

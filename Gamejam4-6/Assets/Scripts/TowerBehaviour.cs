@@ -104,7 +104,7 @@ public class TowerBehaviour : MonoBehaviour
             // Rotate the forward vector towards the target direction by one step
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
 
-            if (transform.rotation == Quaternion.LookRotation(new Vector3(newDirection.x, 0, newDirection.z)))
+            if (Quaternion.Angle(transform.rotation, Quaternion.LookRotation(new Vector3(newDirection.x, 0, newDirection.z))) < 10)
             {
                 rotationReached = true;
             }
@@ -112,6 +112,7 @@ public class TowerBehaviour : MonoBehaviour
             {
                 rotationReached = false;
             }
+
 
             // Draw a ray pointing at our target in
             Debug.DrawRay(transform.position, newDirection, Color.red);

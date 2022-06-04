@@ -11,7 +11,17 @@ public class SelectTowerSpawn : MonoBehaviour
 
     public Text resourceCountRef;
 
+    public bool stopPlacing;
+
+    public bool enableDelete;
+
+    public GameObject placingCoverPanel;
+
     public List<TowerData> towerDataList = new List<TowerData>();
+
+    public Text deleteButtonText;
+    public Text stopPlacingButtonText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,47 +34,66 @@ public class SelectTowerSpawn : MonoBehaviour
     {
         resourceCountRef.text = GameController.Instance.currentResources + "/" + GameController.Instance.totalResourceGiven;
 
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("MouseDown");
-            RaycastHit hit;
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit))
+        
+            if (Input.GetMouseButtonDown(0))
             {
-                if (hit.collider != null)
-                {
+                //Debug.Log("MouseDown");
+                RaycastHit hit;
+                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                    if (GameController.Instance.currentResources > 0)
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider != null)
                     {
-                        if ((GameController.Instance.currentResources - GameController.Instance.costOfTower[currentTowerIndex]) >= 0)
+                        if (!enableDelete)
                         {
-                            GameController.Instance.currentResources -= GameController.Instance.costOfTower[currentTowerIndex];
-                            GameObject newTower = Instantiate(towerDataList[currentTowerIndex].PrefabRef, hit.point, Quaternion.identity, this.transform) as GameObject;
+                            if (!stopPlacing)
+                            {
+                                if (GameController.Instance.currentResources > 0)
+                                {
+                                    if ((GameController.Instance.currentResources - GameController.Instance.costOfTower[currentTowerIndex]) >= 0)
+                                    {
+                                        GameController.Instance.currentResources -= GameController.Instance.costOfTower[currentTowerIndex];
+                                        GameObject newTower = Instantiate(towerDataList[currentTowerIndex].PrefabRef, hit.point, Quaternion.identity) as GameObject;
+                                    }
+                                    else
+                                    {
+                                        Debug.Log("Insufficient Resource");
+                                    }
+                                }
+                            }
                         }
                         else
                         {
-                            Debug.Log("Insufficient Resource");
+                            if (hit.collider.tag == "Tower")
+                            {
+                                //refund resources based on type
+                                GameController.Instance.currentResources += GameController.Instance.costOfTower[(int)hit.collider.gameObject.GetComponent<TowerBehaviour>().towerType];
+
+                                Destroy(hit.collider.gameObject);
+                            }
+
+                            Debug.Log("HERE");
                         }
-
-                       
                     }
-
-                    
                 }
+            }
+
+
+        if (!stopPlacing)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                MakeFocus(0);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                MakeFocus(1);
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            MakeFocus(0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            MakeFocus(1);
-        }
+        
     }
 
     public void MakeFocus(int num)
@@ -85,6 +114,35 @@ public class SelectTowerSpawn : MonoBehaviour
                 }
             }
         }
+    }
+    public void TogglePlacing()
+    {
+        stopPlacing = !stopPlacing;
+        placingCoverPanel.SetActive(stopPlacing);
+        enableDelete = false;
+
+        stopPlacingButtonText.text = "Stop " + "(" + stopPlacing.ToString() + ")";
+        deleteButtonText.text = "Delete " + "(" + enableDelete.ToString() + ")";
+        
+        if (enableDelete)
+        {
+            placingCoverPanel.SetActive(enableDelete);
+        }
+    }
+
+    public void EnableDelete()
+    {
+        enableDelete = !enableDelete;
+        placingCoverPanel.SetActive(enableDelete);
+
+        stopPlacingButtonText.text = "Stop " + "(" + stopPlacing.ToString() + ")";
+        deleteButtonText.text = "Delete " + "(" + enableDelete.ToString() + ")";
+
+        if (stopPlacing)
+        {
+            placingCoverPanel.SetActive(stopPlacing);
+        }
+
     }
 }
 

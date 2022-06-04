@@ -94,9 +94,10 @@ GameObject:
   - component: {fileID: 228222333298029128}
   - component: {fileID: 2652119117424412290}
   - component: {fileID: -7213831958051516560}
+  - component: {fileID: 1561050334980066579}
   m_Layer: 0
   m_Name: prefab_CrossbowTower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -191,6 +192,19 @@ MonoBehaviour:
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!135 &1561050334980066579
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4597828019199240023}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.49999997
+  m_Center: {x: 0, y: 0.2919099, z: 0}
 --- !u!1 &4743550079414598193
 GameObject:
   m_ObjectHideFlags: 0

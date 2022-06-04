@@ -31,9 +31,11 @@ public class Projectile : MonoBehaviour
             {
                 case PROJECTILETYPE.Arrow:
                     SoundController.Instance.PlaySoundEffect(2);
+                    other.gameObject.GetComponent<EnemyScript>().damageFunction(1);
                     break;
                 case PROJECTILETYPE.Cannon:
                     SoundController.Instance.PlaySoundEffect(3);
+                    other.gameObject.GetComponent<EnemyScript>().damageFunction(2);
                     break;
                 default:
                     break;
