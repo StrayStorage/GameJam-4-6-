@@ -108,7 +108,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4597828019199240023}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -179,6 +179,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdac6945c0d6dd64ba035688bc0fd2e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerType: 0
+  rotationReached: 0
+  updatedTarget: {fileID: 0}
+  distanceToTarget: 0
+  timeBeforeEachShot: 0.5
+  maxShootingRange: 5
+  rotationSpeed: 5
+  projectilePositionReference: {fileID: 1506566757355610821}
+  projectilePrefab: {fileID: 1588922996210831025, guid: 0f899c3275b974f4b8135ef7dd57ad6a, type: 3}
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &4743550079414598193
 GameObject:
   m_ObjectHideFlags: 0

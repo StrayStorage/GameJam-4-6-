@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class RaycastPointer : MonoBehaviour
 {
-    public GameObject towerToSpawn;
+    public SelectTowerSpawn selectTowerSpawnRef;
+
+    public List<GameObject> towerPrefabList;
 
     void Update()
     {
-
-
         // Start is called before the first frame update
         if (Input.GetMouseButtonDown(0))
         {
@@ -21,9 +21,7 @@ public class RaycastPointer : MonoBehaviour
             {
                 if (hit.collider != null)
                 {
-                    //hit.rigidbody.AddForceAtPosition(ray.direction * pokeForce, hit.point);
-                    Debug.Log(hit.point);
-                    GameObject newTower = Instantiate(towerToSpawn, hit.point, Quaternion.identity, this.transform) as GameObject;
+                    GameObject newTower = Instantiate(towerPrefabList[selectTowerSpawnRef.currentTowerIndex], hit.point, Quaternion.identity, this.transform) as GameObject;
                 }
             }
         }

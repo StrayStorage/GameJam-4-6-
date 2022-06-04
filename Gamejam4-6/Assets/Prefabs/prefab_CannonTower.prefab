@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 5586997854770892266}
   - component: {fileID: 8801963760801677903}
   - component: {fileID: 6756010967934629509}
+  - component: {fileID: 8948483646598003388}
   m_Layer: 0
   m_Name: prefab_CannonTower
   m_TagString: Untagged
@@ -165,3 +166,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8948483646598003388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5098866830362892112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdac6945c0d6dd64ba035688bc0fd2e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerType: 1
+  rotationReached: 0
+  updatedTarget: {fileID: 0}
+  distanceToTarget: 0
+  timeBeforeEachShot: 1.5
+  maxShootingRange: 5
+  rotationSpeed: 2
+  projectilePositionReference: {fileID: 7003302652493488011}
+  projectilePrefab: {fileID: 1588922996210831025, guid: 557843bd5eea3ee44a2892715c63855e, type: 3}
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 64

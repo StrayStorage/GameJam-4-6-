@@ -4,30 +4,40 @@ using UnityEngine;
 
 public class TowerBehaviour : MonoBehaviour
 {
+    public enum TOWERTYPE
+    {
+        Arrow,
+        Cannon
+    }
+    public TOWERTYPE towerType;
 
+
+    [Header("LiveTowerProperties")]
     public bool rotationReached;
+    public Transform updatedTarget;
+    public float distanceToTarget;
 
     [Header("TowerProperties")]
-    public float damage;
+    public float timeBeforeEachShot = 0.5f;
+    private float cachedTimeBeforeEachShot;
+    public float maxShootingRange = 5;
+    public float rotationSpeed = 5.0f;
+    private float damage;
 
-    public float rotationSpeed;
+    [Header("Projectile Properties")]
+    private float projectileForce = 1000f;
+    public Transform projectilePositionReference;
+    public GameObject projectilePrefab;
 
-    public float timeBeforeEachShot ;
-
-    public Transform target;
-
-    private float shootingRange = 3;
-    // Angular speed in radians per sec.
-    public float speed = 1.0f;
-
+    [Header("EnemyProperties")]
     [SerializeField]
     private LayerMask enemyLayerMask;
-
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        distanceToTarget = maxShootingRange;
+        cachedTimeBeforeEachShot = timeBeforeEachShot;
     }
 
     // Update is called once per frame
@@ -35,30 +45,43 @@ public class TowerBehaviour : MonoBehaviour
     {
         RangeCheck();
         RotateTowardsTarget();
-
-
+        Shoot();
     }
-
 
     void RangeCheck()
     {
-        
-        Collider[] hitColliderList = Physics.OverlapSphere(transform.position, shootingRange, ~enemyLayerMask);
+        Collider[] hitColliderList = Physics.OverlapSphere(transform.position, maxShootingRange, enemyLayerMask);
         
         for (int i = 0; i < hitColliderList.Length; i++)
         {
+            Debug.Log(hitColliderList[i].gameObject.name);
+
             if (hitColliderList[i].tag == "Enemy")
             {
+                if (distanceToTarget > Vector3.Distance(hitColliderList[i].gameObject.transform.position, this.transform.position))
+                {
+                    updatedTarget = hitColliderList[i].gameObject.transform;
 
-                target = hitColliderList[i].gameObject.transform;
-                return;
+                    distanceToTarget = Vector3.Distance(updatedTarget.gameObject.transform.position, this.transform.position);
+                }
             }
             else
             {
-                target = null;
+                updatedTarget = null;
+                distanceToTarget = maxShootingRange;
             }
-
         }
+
+        if (updatedTarget != null)
+        {
+            //checks if the current target is getting further away
+            if (Vector3.Distance(updatedTarget.gameObject.transform.position, this.transform.position) > distanceToTarget || hitColliderList.Length == 0)
+            {
+                updatedTarget = null;
+                distanceToTarget = maxShootingRange;
+            }
+        }
+
     }
 
     void OnDrawGizmosSelected()
@@ -66,17 +89,17 @@ public class TowerBehaviour : MonoBehaviour
         // Draw a yellow sphere at the transform's position
         Gizmos.color = Color.red;
 
-        Gizmos.DrawWireSphere(transform.position, shootingRange);
+        Gizmos.DrawWireSphere(transform.position, maxShootingRange);
     }
 
     void RotateTowardsTarget()
     {
-        if (target != null)
+        if (updatedTarget != null)
         {
-            Vector3 targetDirection = target.position - transform.position;
+            Vector3 targetDirection = updatedTarget.position - transform.position;
 
             // The step size is equal to speed times frame time.
-            float singleStep = speed * Time.deltaTime;
+            float singleStep = rotationSpeed * Time.deltaTime;
 
             // Rotate the forward vector towards the target direction by one step
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
@@ -100,6 +123,43 @@ public class TowerBehaviour : MonoBehaviour
         else
         {
             rotationReached = false;
+        }
+    }
+
+    void Shoot()
+    {
+        if (rotationReached && updatedTarget)
+        {
+            if (timeBeforeEachShot <= 0)
+            {
+                switch (towerType)
+                {
+                    case TOWERTYPE.Arrow:
+                        SoundController.Instance.PlaySoundEffect(0);
+                        break;
+                    case TOWERTYPE.Cannon:
+                        SoundController.Instance.PlaySoundEffect(1);
+                        break;
+                    default:
+                        break;
+                }
+
+
+
+                SoundController.Instance.PlaySoundEffect(0);
+
+
+                timeBeforeEachShot = cachedTimeBeforeEachShot;
+
+                GameObject newProjectile = Instantiate(projectilePrefab, projectilePositionReference.position, projectilePositionReference.transform.rotation) as GameObject;
+
+                newProjectile.GetComponent<Rigidbody>().AddForce(transform.forward * projectileForce);
+            }
+            else
+            {
+                timeBeforeEachShot -= Time.deltaTime;
+            }
+
         }
     }
 }
