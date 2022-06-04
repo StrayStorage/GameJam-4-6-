@@ -13,6 +13,7 @@ public class EnemyScript : MonoBehaviour
     private List<GameObject> theWaypoints;
     public int enemyHp;
     public int minusHp = 1;
+    public int queueNum;
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +22,17 @@ public class EnemyScript : MonoBehaviour
         theWaypoints = WaypointSystem.Instance.theWaypoints;
         maxNumber = theWaypoints.Count;
         currentNumber = 0;
+        startMoving(currentNumber);
     }
 
-    void startMoving(int number)
+    public void startMoving(int number)
     {
         agent.destination = theWaypoints[number].transform.position;
+    }
+
+    public void assignQNum(int number)
+    {
+        queueNum = number;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,7 +46,7 @@ public class EnemyScript : MonoBehaviour
 
     public void damageFunction(int number)
     {
-        enemyHp -= 1;
+        enemyHp -= number;
         if(enemyHp == 0)
         {
             deathFunction();
@@ -49,16 +56,12 @@ public class EnemyScript : MonoBehaviour
     public void deathFunction()
     {
         print("Ded");
+        SpawnScript.Instance.imDead(queueNum);
         Destroy(this.gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp("e"))
-        {
-
-            startMoving(currentNumber);
-        }
     }
 }
