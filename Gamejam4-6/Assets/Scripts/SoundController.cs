@@ -36,8 +36,6 @@ public class SoundController : MonoBehaviour
     }
 }
 
-
-
 [Serializable]
 public class PlayerData
 {

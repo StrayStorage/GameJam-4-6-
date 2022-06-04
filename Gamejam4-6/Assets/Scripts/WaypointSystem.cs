@@ -17,15 +17,16 @@ public class WaypointSystem : MonoBehaviour
         {
             Instance = this;
         }
+        foreach (Transform child in transform)
+        {
+            theWaypoints.Add(child.gameObject);
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-       foreach (Transform child in transform)
-        {
-            theWaypoints.Add(child.gameObject);
-        }
+       
     }
 
     // Update is called once per frame

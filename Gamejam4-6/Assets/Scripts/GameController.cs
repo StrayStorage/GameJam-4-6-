@@ -13,7 +13,8 @@ public class GameController : MonoBehaviour
     public int totalResourceGiven = 24;
 
     public List<int> costOfTower;
-
+    
+    public int playerLife = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,9 +30,16 @@ public class GameController : MonoBehaviour
         currentResources = totalResourceGiven;
     }
 
+
+
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void minusLife(int number)
+    {
+        playerLife -= 1;
     }
 }

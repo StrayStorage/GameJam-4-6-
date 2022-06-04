@@ -12,6 +12,8 @@ public class EnemyScript : MonoBehaviour
     private int maxNumber;
     private List<GameObject> theWaypoints;
     public int enemyHp;
+    public int minusHp = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,6 @@ public class EnemyScript : MonoBehaviour
         theWaypoints = WaypointSystem.Instance.theWaypoints;
         maxNumber = theWaypoints.Count;
         currentNumber = 0;
-        startMoving(currentNumber);
     }
 
     void startMoving(int number)
@@ -45,7 +46,7 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    private void deathFunction()
+    public void deathFunction()
     {
         print("Ded");
         Destroy(this.gameObject);
@@ -56,7 +57,8 @@ public class EnemyScript : MonoBehaviour
     {
         if (Input.GetKeyUp("e"))
         {
-            damageFunction(1);
+
+            startMoving(currentNumber);
         }
     }
 }
