@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 1cf6f4c6e6e0518419839d3f5448dd99, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.33050266, g: 0.29630908, b: 0.517364, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -572,6 +572,8 @@ MonoBehaviour:
   totalResourceGiven: 24
   costOfTower: 0400000008000000
   playerLife: 3
+  totalEnemies: 0
+  timeTillNextWave: 0
 --- !u!1001 &56352799
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15026,16 +15028,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTowerIndex: 0
-  activeTower: {fileID: 2004276055}
-  resourceCountRef: {fileID: 302721457}
+  towersChoosingGameObject: {fileID: 0}
+  resourceCountRef: {fileID: 0}
   stopPlacing: 0
   enableDelete: 0
   placingCoverPanel: {fileID: 1000817806}
   towerDataList:
-  - ToggleRef: {fileID: 1452987541}
+  - TowerName: 
+    TowerResource: 0
     SpriteRef: {fileID: 21300000, guid: 9bd11461dde620b43802cb3eceecf24e, type: 3}
     PrefabRef: {fileID: 4597828019199240023, guid: 98e65e48248012c46b267bf77ac64276, type: 3}
-  - ToggleRef: {fileID: 1378124256}
+  - TowerName: 
+    TowerResource: 0
     SpriteRef: {fileID: 21300000, guid: 44ff2ab412b678f45b48ef4e42c8b5f3, type: 3}
     PrefabRef: {fileID: 5098866830362892112, guid: fe3b71b4f5ab6ce4fbed2e3c1ed061f7, type: 3}
   stateToggleList:
