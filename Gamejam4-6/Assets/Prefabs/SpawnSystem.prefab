@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6653828675098787300
+--- !u!1 &6227333725451666747
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6653828675098787301}
-  - component: {fileID: 6653828675098787298}
+  - component: {fileID: 6227333725451666746}
+  - component: {fileID: 6227333725451666745}
   m_Layer: 0
-  m_Name: WaypointSystem
+  m_Name: SpawnSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6653828675098787301
+--- !u!4 &6227333725451666746
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6653828675098787300}
+  m_GameObject: {fileID: 6227333725451666747}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.5219746, y: -6.4418535, z: 3.3461492}
+  m_LocalPosition: {x: 5.083, y: 0.427, z: -0.857}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6653828675098787298
+--- !u!114 &6227333725451666745
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6653828675098787300}
+  m_GameObject: {fileID: 6227333725451666747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 735a0e059a5b1c44e8dabbc839a4c782, type: 3}
+  m_Script: {fileID: 11500000, guid: 8bd089729fdeeb944bbee052d2f6f665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  theWaypoints: []
+  footSoldier: {fileID: 5014216528233125430, guid: c4b6f1ea50002a04d98d82b6d63eafbc, type: 3}
+  defenseSoldier: {fileID: 5014216528233125430, guid: 3578ea2d21b0b004f8220771017131fb, type: 3}
+  waveList: []
