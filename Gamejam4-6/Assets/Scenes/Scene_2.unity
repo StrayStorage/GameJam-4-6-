@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4039289, g: 0.3070557, b: 0.5334117, a: 1}
+  m_IndirectSpecularColor: {r: 0.33050266, g: 0.29630908, b: 0.517364, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -26959,11 +26959,11 @@ PrefabInstance:
     - target: {fileID: 4623110823545386351, guid: 413741fa2297b2d4887d86b9275d7542, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: f1f03180d73b9ab4a9742f35c6066ae3, type: 2}
+      objectReference: {fileID: 11400000, guid: dfc61a75f9adf13498e3c8a59086bc0a, type: 2}
     - target: {fileID: 4623110823545386351, guid: 413741fa2297b2d4887d86b9275d7542, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 4379605746083500661, guid: f1f03180d73b9ab4a9742f35c6066ae3, type: 2}
+      objectReference: {fileID: -8343940667848259192, guid: dfc61a75f9adf13498e3c8a59086bc0a, type: 2}
     - target: {fileID: 4623110823707904879, guid: 413741fa2297b2d4887d86b9275d7542, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
