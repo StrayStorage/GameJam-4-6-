@@ -84,6 +84,7 @@ public class GameController : MonoBehaviour
 
     public void YouWin()
     {
+        print("Win");
         SelectTowerSpawn.Instance.winPanel.SetActive(true);
         Time.timeScale = 0;
     }

@@ -129,6 +129,7 @@ public class SpawnScript : MonoBehaviour
         currNum = 0;
         spawn(footSoldier);
         numOfFootSoldier -= 1;
+        GameController.Instance.UpdateTheEnemies();
     }
 
     void spawn (GameObject enemy)
@@ -162,7 +163,7 @@ public class SpawnScript : MonoBehaviour
                 }
                 else if (i == areYouAlive.Length - 1 && currentWaveNumber == waveList.Count - 1)
                 {
-                    GameController.Instance.YouLose();
+                    GameController.Instance.YouWin();
                 }
             }
         }

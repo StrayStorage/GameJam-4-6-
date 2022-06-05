@@ -19,10 +19,13 @@ public class SceneController : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
+       
     }
     public void RestartLevel()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

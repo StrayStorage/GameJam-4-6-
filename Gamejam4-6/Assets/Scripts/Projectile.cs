@@ -30,10 +30,8 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collided with " + other.gameObject.name);
         if(other.gameObject.tag == "Enemy")
         {
-            Debug.Log("IS an enemy");
             switch (projectileType)
             {
                 case PROJECTILETYPE.Arrow:
