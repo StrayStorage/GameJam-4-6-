@@ -18,8 +18,6 @@ public class AttachToPlayer : MonoBehaviour
 
     public float zOffset = 0f;
 
-
-
     public Vector3 cacheOriginalPosition;
 
     private void Start()
@@ -30,28 +28,27 @@ public class AttachToPlayer : MonoBehaviour
 
     void Update()
     {
+        float interpolation = speed * Time.deltaTime;
+        Vector3 position = this.transform.position;
+        
         if (enableFollow)
         {
-            float interpolation = speed * Time.deltaTime;
-
-            Vector3 position = this.transform.position;
             position.y = Mathf.Lerp(this.transform.position.y, objectToFollow.transform.position.y + yOffset, interpolation);
             position.x = Mathf.Lerp(this.transform.position.x, objectToFollow.transform.position.x + xOffset, interpolation);
             position.z = Mathf.Lerp(this.transform.position.z, objectToFollow.transform.position.z + zOffset, interpolation);
-
-            this.transform.position = position;
         }
+        else
+        {
+            position = Vector3.Lerp(this.transform.position, cacheOriginalPosition, interpolation);
+        }
+
+        this.transform.position = position;
     }
+
 
     public void ResetToOrigin()
     {
         enableFollow = !enableFollow;
         SelectTowerSpawn.Instance.changeTextCamera(enableFollow);
-        
-        Vector3 position = this.transform.position;
-
-        position = cacheOriginalPosition;
-
-        this.transform.position = position;
     }
 }
