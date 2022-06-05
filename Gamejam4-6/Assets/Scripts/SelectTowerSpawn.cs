@@ -15,18 +15,18 @@ public class SelectTowerSpawn : MonoBehaviour
     public GameObject towersChoosingGameObject;
 
     public TextMeshProUGUI resourceCountRef;
+    public TextMeshProUGUI livesCountRef;
+    public TextMeshProUGUI stateRef;
 
     public bool stopPlacing;
 
     public bool enableDelete;
 
-    public GameObject placingCoverPanel;
-
     public List<TowerData> towerDataList = new List<TowerData>();
-
-    public List<Toggle> stateToggleList;
+    
 
     public string currentToggledState;
+    private string nextToggledState;
 
     public Vector3 ghostPosition;
 
@@ -48,10 +48,9 @@ public class SelectTowerSpawn : MonoBehaviour
             Instance = this;
         }
 
-        //towerDataList[0].ToggleRef.isOn = true;
-        //activeTower.sprite = towerDataList[0].SpriteRef;
 
-        currentToggledState = stateToggleList[0].name.Replace("Toggle", "");
+        nextToggledState = "Freelook";
+        CheckStates();
 
        for (int i = 0; i < towerDataList.Count; i++)
         {
@@ -59,7 +58,6 @@ public class SelectTowerSpawn : MonoBehaviour
             chosenToggle.GetComponent<UItowerSelection>().fillUpDetails(towerDataList[i]);
             chosenToggle.GetComponent<UItowerSelection>().assignedNum = i;
             toggleRef[i] = chosenToggle;
-            print(toggleRef[i].name);
             if(i == 0)
             {
                 chosenToggle.GetComponent<Toggle>().isOn = true;
@@ -197,7 +195,7 @@ public class SelectTowerSpawn : MonoBehaviour
             }
         }
 
-        CheckStates();
+        //CheckStates();
     }
 
     public void MakeFocus(int num)
@@ -207,32 +205,36 @@ public class SelectTowerSpawn : MonoBehaviour
         //activeTower.sprite = towerDataList[num].SpriteRef;
     }
 
-    void CheckStates()
+    public void CheckStates()
     {
+        currentToggledState = nextToggledState;
         switch (currentToggledState)
         {
             case "Freelook":
+                stateRef.text = "Free look mode";
                 stopPlacing = true;
-                placingCoverPanel.SetActive(true);
+                enableDelete = false;
+                nextToggledState = "Build";
                 break;
 
             case "Build":
+                stateRef.text = "Building mode";
                 stopPlacing = false;
                 enableDelete = false;
-                placingCoverPanel.SetActive(false);
+                nextToggledState = "Delete";
                 break;
 
             case "Delete":
+                stateRef.text = "Delete mode";
                 enableDelete = true;
-                placingCoverPanel.SetActive(true);
+                nextToggledState = "Freelook";
                 break;
             default:
                 break;
-
         }
     }
 
-    public void ToggleThreeStates(Toggle togRef)
+    /*public void ToggleThreeStates(Toggle togRef)
     {
         if (togRef.isOn)
         {
@@ -244,7 +246,13 @@ public class SelectTowerSpawn : MonoBehaviour
                 }
             }
         }
+    }*/
+
+    public void LivesUpdate(int number)
+    {
+        livesCountRef.text = number.ToString();
     }
+
 }
 
 [Serializable]

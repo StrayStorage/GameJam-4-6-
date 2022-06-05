@@ -39,12 +39,16 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyUp("p"))
+        {
+            StartTheWaves();
+        }
     }
 
     public void minusLife(int number)
     {
         playerLife -= 1;
+        SelectTowerSpawn.Instance.LivesUpdate(playerLife);
     }
 
     public void StartTheWaves()
