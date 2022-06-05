@@ -22,6 +22,9 @@ public class SelectTowerSpawn : MonoBehaviour
     public TextMeshProUGUI changeViewRef;
     public TextMeshProUGUI waveTimerRef;
 
+    public GameObject winPanel;
+    public GameObject losePanel;
+
     public bool stopPlacing;
 
     public bool enableDelete;
@@ -38,6 +41,7 @@ public class SelectTowerSpawn : MonoBehaviour
 
     private GameObject chosenToggle;
     private GameObject[] toggleRef;
+
 
     // Start is called before the first frame update
     void Start()

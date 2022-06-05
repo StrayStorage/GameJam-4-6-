@@ -54,6 +54,10 @@ public class GameController : MonoBehaviour
     {
         playerLife -= 1;
         SelectTowerSpawn.Instance.LivesUpdate(playerLife);
+        if(playerLife == 0)
+        {
+            YouLose();
+        }
     }
 
     public void minusEnemies(int number)
@@ -77,4 +81,16 @@ public class GameController : MonoBehaviour
     {
         SelectTowerSpawn.Instance.waveTimerUpdate(msg);
     }
+
+    public void YouWin()
+    {
+        SelectTowerSpawn.Instance.winPanel.SetActive(true);
+        Time.timeScale = 0;
+    }
+    public void YouLose()
+    {
+        SelectTowerSpawn.Instance.losePanel.SetActive(true);
+        Time.timeScale = 0;
+    }
+
 }

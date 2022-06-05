@@ -160,6 +160,10 @@ public class SpawnScript : MonoBehaviour
                     targetTime = currentWave.timeToNextWave;
                     currentWaveNumber += 1;
                 }
+                else if (i == areYouAlive.Length - 1 && currentWaveNumber == waveList.Count - 1)
+                {
+                    GameController.Instance.YouLose();
+                }
             }
         }
 
