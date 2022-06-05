@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
+
 public class SelectTowerSpawn : MonoBehaviour
 {
+    public static SelectTowerSpawn Instance;
+
     public int currentTowerIndex;
 
-    public Image activeTower;
+    //public Image activeTower;
+    public GameObject towersChoosingGameObject;
 
-    public Text resourceCountRef;
+    public TextMeshProUGUI resourceCountRef;
 
     public bool stopPlacing;
 
@@ -27,13 +32,41 @@ public class SelectTowerSpawn : MonoBehaviour
 
     public GameObject ghostObjectRef;
 
+    private GameObject chosenToggle;
+    private GameObject[] toggleRef;
+
     // Start is called before the first frame update
     void Start()
     {
-        towerDataList[0].ToggleRef.isOn = true;
-        activeTower.sprite = towerDataList[0].SpriteRef;
+        toggleRef = new GameObject[towerDataList.Count];
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+
+        //towerDataList[0].ToggleRef.isOn = true;
+        //activeTower.sprite = towerDataList[0].SpriteRef;
 
         currentToggledState = stateToggleList[0].name.Replace("Toggle", "");
+
+       for (int i = 0; i < towerDataList.Count; i++)
+        {
+            chosenToggle = towersChoosingGameObject.transform.GetChild(i).gameObject;
+            chosenToggle.GetComponent<UItowerSelection>().fillUpDetails(towerDataList[i]);
+            chosenToggle.GetComponent<UItowerSelection>().assignedNum = i;
+            toggleRef[i] = chosenToggle;
+            print(toggleRef[i].name);
+            if(i == 0)
+            {
+                chosenToggle.GetComponent<Toggle>().isOn = true;
+            }
+            chosenToggle.GetComponent<Toggle>().group = towersChoosingGameObject.GetComponent<ToggleGroup>();
+        }
+            
     }
 
     // Update is called once per frame
@@ -154,11 +187,13 @@ public class SelectTowerSpawn : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 MakeFocus(0);
+                toggleRef[0].GetComponent<Toggle>().isOn = true;
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 MakeFocus(1);
+                toggleRef[1].GetComponent<Toggle>().isOn = true;
             }
         }
 
@@ -168,22 +203,10 @@ public class SelectTowerSpawn : MonoBehaviour
     public void MakeFocus(int num)
     {
         currentTowerIndex = num;
-        towerDataList[num].ToggleRef.isOn = true;
-        activeTower.sprite = towerDataList[num].SpriteRef;
+        //towerDataList[num].ToggleRef.isOn = true;
+        //activeTower.sprite = towerDataList[num].SpriteRef;
     }
-    public void CheckFocus(Toggle togRef)
-    {
-        if (togRef.isOn)
-        {
-            for (int i = 0; i < towerDataList.Count; i++)
-            {
-                if (togRef == towerDataList[i].ToggleRef)
-                {
-                    MakeFocus(i);
-                }
-            }
-        }
-    }
+
     void CheckStates()
     {
         switch (currentToggledState)
@@ -227,15 +250,17 @@ public class SelectTowerSpawn : MonoBehaviour
 [Serializable]
 public class TowerData
 {
-    public Toggle ToggleRef;
+    public string TowerName;
+
+    public int TowerResource;
 
     public Sprite SpriteRef;
 
     public GameObject PrefabRef;
 
-    public TowerData(Toggle toggleRef, Sprite spriteRef, GameObject prefabRef)
+
+    public TowerData(string towerName, int towerResource, Sprite spriteRef, GameObject prefabRef)
     {
-        ToggleRef = toggleRef;
 
         SpriteRef = spriteRef;
 

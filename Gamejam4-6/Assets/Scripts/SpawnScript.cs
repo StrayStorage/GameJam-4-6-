@@ -50,6 +50,7 @@ public class SpawnScript : MonoBehaviour
         if(safeToCountdown)
         {
             targetTime -= Time.deltaTime;
+            GameController.Instance.timeTillNextWave = targetTime;
             if (targetTime < 0)
             {
                 StartWave(currentWaveNumber);
@@ -119,6 +120,7 @@ public class SpawnScript : MonoBehaviour
         numOfFootSoldier = currentWave.footSoldiersNum;
         numOfDefenseSoldier = currentWave.defenseSoldiersNum;
         totalEnemy = numOfFootSoldier + numOfDefenseSoldier;
+        GameController.Instance.totalEnemies = totalEnemy;
         areYouAlive = new bool[totalEnemy];
         currNum = 0;
         spawn(footSoldier);
@@ -138,6 +140,7 @@ public class SpawnScript : MonoBehaviour
     public void imDead (int num)
     {
         areYouAlive[num] = false;
+        GameController.Instance.totalEnemies -= 1;
         //check if all are dead
         for (int i = 0; i < areYouAlive.Length; i ++)
         {

@@ -17,7 +17,6 @@ public class GoalScript : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        print(other.gameObject.tag);
         if (other.gameObject.tag == "Enemy")
         {
             GameController.Instance.minusLife(other.gameObject.GetComponent<EnemyScript>().minusHp);
