@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class AttachToPlayer : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class AttachToPlayer : MonoBehaviour
 
 
     public Vector3 cacheOriginalPosition;
-
+    public TextMeshProUGUI textBox;
 
     private void Start()
     {
@@ -46,7 +47,15 @@ public class AttachToPlayer : MonoBehaviour
     public void ResetToOrigin()
     {
         enableFollow = !enableFollow;
-
+        if(enableFollow)
+        {
+            textBox.text = "Eyes in the skies";
+        }
+        else
+        {
+            textBox.text = "Boots on the ground";
+        }
+        
         Vector3 position = this.transform.position;
 
         position = cacheOriginalPosition;

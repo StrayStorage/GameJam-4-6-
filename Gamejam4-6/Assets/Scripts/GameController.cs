@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 public class GameController : MonoBehaviour
 {
     public static GameController Instance;
@@ -14,9 +16,13 @@ public class GameController : MonoBehaviour
     public List<int> costOfTower;
     public int playerLife = 3;
 
+    [Header("UI")]
+    public TextMeshProUGUI tmp_Announcement;
+
     [Header("Reference")]
     public int totalEnemies;
     public float timeTillNextWave;
+    
 
 
     // Start is called before the first frame update
@@ -51,8 +57,16 @@ public class GameController : MonoBehaviour
         SelectTowerSpawn.Instance.LivesUpdate(playerLife);
     }
 
+    public void minusEnemies(int number)
+    {
+        totalEnemies -= 1;
+        SelectTowerSpawn.Instance.EnemiesUpdate(totalEnemies);
+    }
+
+
     public void StartTheWaves()
     {
         SpawnScript.Instance.StartWaves();
+        SelectTowerSpawn.Instance.EnemiesUpdate(totalEnemies);
     }
 }

@@ -17,6 +17,7 @@ public class SelectTowerSpawn : MonoBehaviour
     public TextMeshProUGUI resourceCountRef;
     public TextMeshProUGUI livesCountRef;
     public TextMeshProUGUI stateRef;
+    public TextMeshProUGUI enemiesRef;
 
     public bool stopPlacing;
 
@@ -49,8 +50,6 @@ public class SelectTowerSpawn : MonoBehaviour
         }
 
 
-        nextToggledState = "Freelook";
-        CheckStates();
 
        for (int i = 0; i < towerDataList.Count; i++)
         {
@@ -64,7 +63,9 @@ public class SelectTowerSpawn : MonoBehaviour
             }
             chosenToggle.GetComponent<Toggle>().group = towersChoosingGameObject.GetComponent<ToggleGroup>();
         }
-            
+
+        nextToggledState = "Freelook";
+        CheckStates();
     }
 
     // Update is called once per frame
@@ -173,8 +174,7 @@ public class SelectTowerSpawn : MonoBehaviour
 
                             Destroy(hit.collider.gameObject);
                         }
-
-                        Debug.Log("HERE");
+                        
                     }
                 }
             }
@@ -211,6 +211,7 @@ public class SelectTowerSpawn : MonoBehaviour
         switch (currentToggledState)
         {
             case "Freelook":
+                TowerButtonStatus(false);
                 stateRef.text = "Free look mode";
                 stopPlacing = true;
                 enableDelete = false;
@@ -218,6 +219,7 @@ public class SelectTowerSpawn : MonoBehaviour
                 break;
 
             case "Build":
+                TowerButtonStatus(true);
                 stateRef.text = "Building mode";
                 stopPlacing = false;
                 enableDelete = false;
@@ -225,12 +227,22 @@ public class SelectTowerSpawn : MonoBehaviour
                 break;
 
             case "Delete":
+
+                TowerButtonStatus(false);
                 stateRef.text = "Delete mode";
                 enableDelete = true;
                 nextToggledState = "Freelook";
                 break;
             default:
                 break;
+        }
+    }
+
+    private void TowerButtonStatus(bool state)
+    {
+        for(int i = 0; i<toggleRef.Length;i++)
+        {
+            toggleRef[i].GetComponent<Toggle>().interactable = state;
         }
     }
 
@@ -251,6 +263,11 @@ public class SelectTowerSpawn : MonoBehaviour
     public void LivesUpdate(int number)
     {
         livesCountRef.text = number.ToString();
+    }
+
+    public void EnemiesUpdate(int number)
+    {
+        enemiesRef.text = number.ToString();
     }
 
 }

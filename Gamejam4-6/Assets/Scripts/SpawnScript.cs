@@ -140,7 +140,7 @@ public class SpawnScript : MonoBehaviour
     public void imDead (int num)
     {
         areYouAlive[num] = false;
-        GameController.Instance.totalEnemies -= 1;
+        GameController.Instance.minusEnemies(1);
         //check if all are dead
         for (int i = 0; i < areYouAlive.Length; i ++)
         {
