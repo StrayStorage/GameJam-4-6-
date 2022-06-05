@@ -54,7 +54,7 @@ public class TowerBehaviour : MonoBehaviour
         
         for (int i = 0; i < hitColliderList.Length; i++)
         {
-            Debug.Log(hitColliderList[i].gameObject.name);
+            //Debug.Log(hitColliderList[i].gameObject.name);
 
             if (hitColliderList[i].tag == "Enemy")
             {

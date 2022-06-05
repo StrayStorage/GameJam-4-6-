@@ -51,6 +51,7 @@ public class SpawnScript : MonoBehaviour
         {
             targetTime -= Time.deltaTime;
             GameController.Instance.timeTillNextWave = targetTime;
+            GameController.Instance.UpdateTheTimer(targetTime.ToString(".0"));
             if (targetTime < 0)
             {
                 StartWave(currentWaveNumber);
@@ -103,6 +104,8 @@ public class SpawnScript : MonoBehaviour
     public void StartWaves()
     {
         StartWave(currentWaveNumber);
+
+        GameController.Instance.UpdateTheEnemies();
     }
 
     void ResetWaves()
@@ -115,7 +118,8 @@ public class SpawnScript : MonoBehaviour
 
     private void StartWave(int waveNumber)
     {
-       
+
+        GameController.Instance.UpdateTheTimer("Ongoing!");
         currentWave = waveList[waveNumber];
         numOfFootSoldier = currentWave.footSoldiersNum;
         numOfDefenseSoldier = currentWave.defenseSoldiersNum;

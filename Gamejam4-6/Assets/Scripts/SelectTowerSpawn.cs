@@ -20,6 +20,7 @@ public class SelectTowerSpawn : MonoBehaviour
     public TextMeshProUGUI enemiesRef;
     public TextMeshProUGUI tmp_AnnouncementRef;
     public TextMeshProUGUI changeViewRef;
+    public TextMeshProUGUI waveTimerRef;
 
     public bool stopPlacing;
 
@@ -282,6 +283,11 @@ public class SelectTowerSpawn : MonoBehaviour
         {
             changeViewRef.text = "Boots on the ground";
         }
+    }
+    
+    public void waveTimerUpdate(string msg)
+    {
+        waveTimerRef.text = "Time till \n next wave: \n" + msg;
     }
 
 }

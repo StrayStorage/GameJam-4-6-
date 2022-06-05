@@ -15,8 +15,7 @@ public class GameController : MonoBehaviour
     public int totalResourceGiven = 24;
     public List<int> costOfTower;
     public int playerLife = 3;
-
-    [Header("UI")]
+    
 
     [Header("Reference")]
     public int totalEnemies;
@@ -48,6 +47,7 @@ public class GameController : MonoBehaviour
         {
             StartTheWaves();
         }
+
     }
 
     public void minusLife(int number)
@@ -66,6 +66,15 @@ public class GameController : MonoBehaviour
     public void StartTheWaves()
     {
         SpawnScript.Instance.StartWaves();
+    }
+
+    public void UpdateTheEnemies()
+    {
         SelectTowerSpawn.Instance.EnemiesUpdate(totalEnemies);
+    }
+
+    public void UpdateTheTimer(string msg)
+    {
+        SelectTowerSpawn.Instance.waveTimerUpdate(msg);
     }
 }
