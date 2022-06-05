@@ -15,6 +15,7 @@ public class SpawnScript : MonoBehaviour
     private WaveData currentWave;
 
     private int totalEnemy;
+    private int currTotalEnemy;
     private bool[] areYouAlive;
     private int currNum;
     private int numOfFootSoldier;
@@ -124,6 +125,7 @@ public class SpawnScript : MonoBehaviour
         numOfFootSoldier = currentWave.footSoldiersNum;
         numOfDefenseSoldier = currentWave.defenseSoldiersNum;
         totalEnemy = numOfFootSoldier + numOfDefenseSoldier;
+        currTotalEnemy = totalEnemy;
         GameController.Instance.totalEnemies = totalEnemy;
         areYouAlive = new bool[totalEnemy];
         currNum = 0;
@@ -146,6 +148,7 @@ public class SpawnScript : MonoBehaviour
     {
         areYouAlive[num] = false;
         GameController.Instance.minusEnemies(1);
+        currTotalEnemy -= 1;
         //check if all are dead
         for (int i = 0; i < areYouAlive.Length; i ++)
         {
@@ -155,13 +158,13 @@ public class SpawnScript : MonoBehaviour
             }
             else if (areYouAlive[i] == false)
             {
-                if(i == areYouAlive.Length - 1 && currentWaveNumber < waveList.Count - 1)
+                if(i == areYouAlive.Length - 1 && currentWaveNumber < waveList.Count - 1 && currTotalEnemy == 0)
                 {
                     safeToCountdown = true;
                     targetTime = currentWave.timeToNextWave;
                     currentWaveNumber += 1;
                 }
-                else if (i == areYouAlive.Length - 1 && currentWaveNumber == waveList.Count - 1)
+                else if (i == areYouAlive.Length - 1 && currentWaveNumber == waveList.Count - 1 && currTotalEnemy == 0)
                 {
                     GameController.Instance.YouWin();
                 }
