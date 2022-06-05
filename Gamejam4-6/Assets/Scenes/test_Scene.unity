@@ -2329,7 +2329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   footSoldier: {fileID: 5014216528233125430, guid: c4b6f1ea50002a04d98d82b6d63eafbc, type: 3}
-  defenseSoldier: {fileID: 5014216528233125430, guid: c4b6f1ea50002a04d98d82b6d63eafbc, type: 3}
+  defenseSoldier: {fileID: 5014216528233125430, guid: 3578ea2d21b0b004f8220771017131fb, type: 3}
   waveList:
   - footSoldiersNum: 2
     defenseSoldiersNum: 2

@@ -30,9 +30,9 @@ public class EnemyScript : MonoBehaviour
         agent.destination = theWaypoints[number].transform.position;
     }
 
-    public void assignQNum(int number)
+    public void assignQNum(int qNumber)
     {
-        queueNum = number;
+        queueNum = qNumber;
     }
 
     private void OnTriggerEnter(Collider other)

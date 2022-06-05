@@ -10,17 +10,21 @@ public class SpawnScript : MonoBehaviour
     public GameObject footSoldier;
     public GameObject defenseSoldier;
     public List<WaveData> waveList = new List<WaveData>();
+
     private int currentWaveNumber;
     private WaveData currentWave;
+
     private int totalEnemy;
-    private int currentAmtOfEnemy;
-    private IEnumerator coroutine;
-    private float targetTime;
-    private bool safeToCountdown;
     private bool[] areYouAlive;
     private int currNum;
-    private float spawnTime;
+    private int numOfFootSoldier;
+    private int numOfDefenseSoldier;
 
+    private float targetTime;
+    private float spawnTime;
+    private bool safeToCountdown;
+    private bool spawnCountdown;
+    
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -37,9 +41,7 @@ public class SpawnScript : MonoBehaviour
         // Start is called before the first frame update
         void Start()
     {
-        currentWaveNumber = 0;
-        safeToCountdown = false;
-        areYouAlive = new bool[1];
+        ResetWaves();
     }
 
     // Update is called once per frame
@@ -58,57 +60,83 @@ public class SpawnScript : MonoBehaviour
                 safeToCountdown = false;
             }
         }
+        if (spawnCountdown && currNum < totalEnemy)
+        {
+            spawnTime -= Time.deltaTime;
+            if (spawnTime < 0)
+            {
+                spawnCountdown = false;
+                int rnd = Random.Range(0, 2);
+                if (rnd == 0)
+                {
+                    if (numOfFootSoldier != 0)
+                    {
+                        numOfFootSoldier -= 1;
+                        spawn(footSoldier);
+                    }
+                    else
+                    {
+                        numOfDefenseSoldier -= 1;
+                        spawn(defenseSoldier);
+                    }
+                }
+                else
+                {
+                    if (numOfDefenseSoldier != 0)
+                    {
+                        numOfDefenseSoldier -= 1;
+                        spawn(defenseSoldier);
+                    }
+                    else
+                    {
+                        numOfFootSoldier -= 1;
+                        spawn(footSoldier);
+                    }
+                }
+                
+            }
+        }
+        if(Input.GetKeyUp("s"))
+        {
+            ResetWaves();
+        }
         
+    }
+
+    void ResetWaves()
+    {
+        currentWaveNumber = 0;
+        safeToCountdown = false;
+        areYouAlive = new bool[1];
+        spawnCountdown = false;
     }
 
     private void StartWave(int waveNumber)
     {
        
         currentWave = waveList[waveNumber];
-        totalEnemy = currentWave.defenseSoldiersNum + currentWave.footSoldiersNum;
+        numOfFootSoldier = currentWave.footSoldiersNum;
+        numOfDefenseSoldier = currentWave.defenseSoldiersNum;
+        totalEnemy = numOfFootSoldier + numOfDefenseSoldier;
         areYouAlive = new bool[totalEnemy];
-        print("startwave: " + areYouAlive.Length);
         currNum = 0;
-
-        /*for (int i = 0; i < totalEnemy; i++ )
-        {
-            //Need to spawn foot soldiers before defense soldiers
-            
-            
-        }*/
-
-        coroutine = spawnStuff();
-        StartCoroutine(coroutine);
-        targetTime = currentWave.timeToNextWave;
-        currentWaveNumber += 1;
-    }
-
-    IEnumerator spawnStuff()
-    {
-        print("I live");
-        while ( currNum < totalEnemy )
-        {
-            spawn(footSoldier);
-            yield return new WaitForSeconds(currentWave.timeBetweenSpawn);
-
-        }
-           
+        spawn(footSoldier);
+        numOfFootSoldier -= 1;
     }
 
     void spawn (GameObject enemy)
     {
-        print("leggo");
-        Instantiate(enemy, this.transform);
-        enemy.GetComponent<EnemyScript>().assignQNum(currNum);
+        GameObject thisEnemy = Instantiate(enemy, this.transform);
+        thisEnemy.GetComponent<EnemyScript>().queueNum = currNum;
         areYouAlive[currNum] = true;
         currNum += 1;
+        spawnTime = currentWave.timeBetweenSpawn;
+        spawnCountdown = true;
     }
 
     public void imDead (int num)
     {
         areYouAlive[num] = false;
-
-        print(num + " reporting as ded");
         //check if all are dead
         for (int i = 0; i < areYouAlive.Length; i ++)
         {
@@ -118,11 +146,11 @@ public class SpawnScript : MonoBehaviour
             }
             else if (areYouAlive[i] == false)
             {
-                if(i == areYouAlive.Length - 1)
+                if(i == areYouAlive.Length - 1 && currentWaveNumber < waveList.Count - 1)
                 {
-                    print("all ded");
                     safeToCountdown = true;
-                    StopCoroutine(coroutine);
+                    targetTime = currentWave.timeToNextWave;
+                    currentWaveNumber += 1;
                 }
             }
         }
