@@ -8677,6 +8677,58 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6227333725451666745, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
+      propertyPath: waveList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227333725451666745, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
+      propertyPath: waveList.Array.data[0].timeToNextWave
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227333725451666745, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
+      propertyPath: waveList.Array.data[1].timeToNextWave
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227333725451666745, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
+      propertyPath: waveList.Array.data[2].timeToNextWave
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227333725451666745, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
+      propertyPath: waveList.Array.data[0].footSoldiersNum
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227333725451666745, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
+      propertyPath: waveList.Array.data[1].footSoldiersNum
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227333725451666745, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
+      propertyPath: waveList.Array.data[2].footSoldiersNum
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227333725451666745, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
+      propertyPath: waveList.Array.data[0].timeBetweenSpawn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227333725451666745, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
+      propertyPath: waveList.Array.data[1].timeBetweenSpawn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227333725451666745, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
+      propertyPath: waveList.Array.data[2].timeBetweenSpawn
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227333725451666745, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
+      propertyPath: waveList.Array.data[0].defenseSoldiersNum
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227333725451666745, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
+      propertyPath: waveList.Array.data[1].defenseSoldiersNum
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227333725451666745, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
+      propertyPath: waveList.Array.data[2].defenseSoldiersNum
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6227333725451666746, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -8687,7 +8739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6227333725451666746, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.427
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6227333725451666746, guid: c1bca421d0a709149aebd03cbb1598be, type: 3}
       propertyPath: m_LocalPosition.z

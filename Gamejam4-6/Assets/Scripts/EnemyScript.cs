@@ -47,7 +47,7 @@ public class EnemyScript : MonoBehaviour
     public void damageFunction(int number)
     {
         enemyHp -= number;
-        if(enemyHp == 0)
+        if(enemyHp < 0)
         {
             deathFunction();
         }
