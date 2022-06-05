@@ -22,11 +22,17 @@ public class SelectTowerSpawn : MonoBehaviour
     public Text deleteButtonText;
     public Text stopPlacingButtonText;
 
+    public List<Toggle> stateToggleList;
+
+    public string currentToggledState;
+
     // Start is called before the first frame update
     void Start()
     {
         towerDataList[0].ToggleRef.isOn = true;
         activeTower.sprite = towerDataList[0].SpriteRef;
+
+        currentToggledState = stateToggleList[0].name.Replace("Toggle", "");
     }
 
     // Update is called once per frame
@@ -34,7 +40,6 @@ public class SelectTowerSpawn : MonoBehaviour
     {
         resourceCountRef.text = GameController.Instance.currentResources + "/" + GameController.Instance.totalResourceGiven;
 
-        
             if (Input.GetMouseButtonDown(0))
             {
                 //Debug.Log("MouseDown");
@@ -49,16 +54,19 @@ public class SelectTowerSpawn : MonoBehaviour
                         {
                             if (!stopPlacing)
                             {
-                                if (GameController.Instance.currentResources > 0)
+                                if (hit.collider.tag != "Tower")
                                 {
-                                    if ((GameController.Instance.currentResources - GameController.Instance.costOfTower[currentTowerIndex]) >= 0)
+                                    if (GameController.Instance.currentResources > 0)
                                     {
-                                        GameController.Instance.currentResources -= GameController.Instance.costOfTower[currentTowerIndex];
-                                        GameObject newTower = Instantiate(towerDataList[currentTowerIndex].PrefabRef, hit.point, Quaternion.identity) as GameObject;
-                                    }
-                                    else
-                                    {
-                                        Debug.Log("Insufficient Resource");
+                                        if ((GameController.Instance.currentResources - GameController.Instance.costOfTower[currentTowerIndex]) >= 0)
+                                        {
+                                            GameController.Instance.currentResources -= GameController.Instance.costOfTower[currentTowerIndex];
+                                            GameObject newTower = Instantiate(towerDataList[currentTowerIndex].PrefabRef, hit.point, Quaternion.identity) as GameObject;
+                                        }
+                                        else
+                                        {
+                                            Debug.Log("Insufficient Resource");
+                                        }
                                     }
                                 }
                             }
@@ -93,7 +101,7 @@ public class SelectTowerSpawn : MonoBehaviour
             }
         }
 
-        
+        CheckStates();
     }
 
     public void MakeFocus(int num)
@@ -115,34 +123,43 @@ public class SelectTowerSpawn : MonoBehaviour
             }
         }
     }
-    public void TogglePlacing()
+    void CheckStates()
     {
-        stopPlacing = !stopPlacing;
-        placingCoverPanel.SetActive(stopPlacing);
-        enableDelete = false;
-
-        stopPlacingButtonText.text = "Stop " + "(" + stopPlacing.ToString() + ")";
-        deleteButtonText.text = "Delete " + "(" + enableDelete.ToString() + ")";
-        
-        if (enableDelete)
+        switch (currentToggledState)
         {
-            placingCoverPanel.SetActive(enableDelete);
+            case "Freelook":
+                stopPlacing = true;
+                placingCoverPanel.SetActive(true);
+                break;
+
+            case "Build":
+                stopPlacing = false;
+                enableDelete = false;
+                placingCoverPanel.SetActive(false);
+                break;
+
+            case "Delete":
+                enableDelete = true;
+                placingCoverPanel.SetActive(true);
+                break;
+            default:
+                break;
+
         }
     }
 
-    public void EnableDelete()
+    public void ToggleThreeStates(Toggle togRef)
     {
-        enableDelete = !enableDelete;
-        placingCoverPanel.SetActive(enableDelete);
-
-        stopPlacingButtonText.text = "Stop " + "(" + stopPlacing.ToString() + ")";
-        deleteButtonText.text = "Delete " + "(" + enableDelete.ToString() + ")";
-
-        if (stopPlacing)
+        if (togRef.isOn)
         {
-            placingCoverPanel.SetActive(stopPlacing);
+            for (int i = 0; i < stateToggleList.Count; i++)
+            {
+                if (togRef == stateToggleList[i])
+                {
+                    currentToggledState = stateToggleList[i].name.Replace("Toggle", "");
+                }
+            }
         }
-
     }
 }
 
