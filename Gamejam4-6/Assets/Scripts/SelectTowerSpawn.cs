@@ -19,12 +19,13 @@ public class SelectTowerSpawn : MonoBehaviour
 
     public List<TowerData> towerDataList = new List<TowerData>();
 
-    public Text deleteButtonText;
-    public Text stopPlacingButtonText;
-
     public List<Toggle> stateToggleList;
 
     public string currentToggledState;
+
+    public Vector3 ghostPosition;
+
+    public GameObject ghostObjectRef;
 
     // Start is called before the first frame update
     void Start()
@@ -40,53 +41,113 @@ public class SelectTowerSpawn : MonoBehaviour
     {
         resourceCountRef.text = GameController.Instance.currentResources + "/" + GameController.Instance.totalResourceGiven;
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                //Debug.Log("MouseDown");
-                RaycastHit hit;
-                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit2;
+        var ray2 = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray2, out hit2))
+        {
+            if (hit2.collider != null)
+            {
+                if (!enableDelete)
                 {
-                    if (hit.collider != null)
+                    if (!stopPlacing)
                     {
-                        if (!enableDelete)
+                        if (hit2.collider.tag != "Tower")
                         {
-                            if (!stopPlacing)
+                            if (GameController.Instance.currentResources > 0)
                             {
-                                if (hit.collider.tag != "Tower")
+                                if ((GameController.Instance.currentResources - GameController.Instance.costOfTower[currentTowerIndex]) >= 0)
                                 {
-                                    if (GameController.Instance.currentResources > 0)
+                                    ghostPosition = hit2.point;
+                                    ghostObjectRef.transform.position = ghostPosition;
+
+                                    for (int c = 0; c < ghostObjectRef.transform.childCount; c++)
                                     {
-                                        if ((GameController.Instance.currentResources - GameController.Instance.costOfTower[currentTowerIndex]) >= 0)
+                                        if (c == currentTowerIndex)
                                         {
-                                            GameController.Instance.currentResources -= GameController.Instance.costOfTower[currentTowerIndex];
-                                            GameObject newTower = Instantiate(towerDataList[currentTowerIndex].PrefabRef, hit.point, Quaternion.identity) as GameObject;
+                                            ghostObjectRef.transform.GetChild(currentTowerIndex).gameObject.SetActive(true);
                                         }
                                         else
                                         {
-                                            Debug.Log("Insufficient Resource");
+                                            ghostObjectRef.transform.GetChild(c).gameObject.SetActive(false);
                                         }
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
-                            if (hit.collider.tag == "Tower")
+                            else
                             {
-                                //refund resources based on type
-                                GameController.Instance.currentResources += GameController.Instance.costOfTower[(int)hit.collider.gameObject.GetComponent<TowerBehaviour>().towerType];
-
-                                Destroy(hit.collider.gameObject);
+                                for (int c = 0; c < ghostObjectRef.transform.childCount; c++)
+                                {
+                                    ghostObjectRef.transform.GetChild(c).gameObject.SetActive(false);
+                                }
                             }
-
-                            Debug.Log("HERE");
                         }
                     }
                 }
             }
+            else
+            {
+                for (int c = 0; c < ghostObjectRef.transform.childCount; c++)
+                {
+                    ghostObjectRef.transform.GetChild(c).gameObject.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            for (int c = 0; c < ghostObjectRef.transform.childCount; c++)
+            {
+                ghostObjectRef.transform.GetChild(c).gameObject.SetActive(false);
+            }
+        }
 
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            //Debug.Log("MouseDown");
+            RaycastHit hit;
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider != null)
+                {
+                    if (!enableDelete)
+                    {
+                        if (!stopPlacing)
+                        {
+                            if (hit.collider.tag != "Tower")
+                            {
+                                if (GameController.Instance.currentResources > 0)
+                                {
+                                    if ((GameController.Instance.currentResources - GameController.Instance.costOfTower[currentTowerIndex]) >= 0)
+                                    {
+                                        GameController.Instance.currentResources -= GameController.Instance.costOfTower[currentTowerIndex];
+                                        GameObject newTower = Instantiate(towerDataList[currentTowerIndex].PrefabRef, hit.point, Quaternion.identity) as GameObject;
+                                    }
+                                    else
+                                    {
+                                        Debug.Log("Insufficient Resource");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (hit.collider.tag == "Tower")
+                        {
+                            //refund resources based on type
+                            GameController.Instance.currentResources += GameController.Instance.costOfTower[(int)hit.collider.gameObject.GetComponent<TowerBehaviour>().towerType];
+
+                            Destroy(hit.collider.gameObject);
+                        }
+
+                        Debug.Log("HERE");
+                    }
+                }
+            }
+        }
 
         if (!stopPlacing)
         {
