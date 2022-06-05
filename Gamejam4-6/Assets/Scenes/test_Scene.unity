@@ -5340,6 +5340,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_Flag (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4573401857249602058, guid: 2c734ff7b7e7a1147801be40e6c954f7, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4573401857249602061, guid: 2c734ff7b7e7a1147801be40e6c954f7, type: 3}
       propertyPath: m_RootOrder
       value: 1

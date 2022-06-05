@@ -11,10 +11,14 @@ public class GameController : MonoBehaviour
 
     [Header("Game Properties")]
     public int totalResourceGiven = 24;
-
     public List<int> costOfTower;
-    
     public int playerLife = 3;
+
+    [Header("Reference")]
+    public int totalEnemies;
+    public float timeTillNextWave;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,5 +45,10 @@ public class GameController : MonoBehaviour
     public void minusLife(int number)
     {
         playerLife -= 1;
+    }
+
+    public void StartTheWaves()
+    {
+        SpawnScript.Instance.StartWaves();
     }
 }
