@@ -17,7 +17,6 @@ public class GameController : MonoBehaviour
     public int playerLife = 3;
 
     [Header("UI")]
-    public TextMeshProUGUI tmp_Announcement;
 
     [Header("Reference")]
     public int totalEnemies;

@@ -18,6 +18,8 @@ public class SelectTowerSpawn : MonoBehaviour
     public TextMeshProUGUI livesCountRef;
     public TextMeshProUGUI stateRef;
     public TextMeshProUGUI enemiesRef;
+    public TextMeshProUGUI tmp_AnnouncementRef;
+    public TextMeshProUGUI changeViewRef;
 
     public bool stopPlacing;
 
@@ -268,6 +270,18 @@ public class SelectTowerSpawn : MonoBehaviour
     public void EnemiesUpdate(int number)
     {
         enemiesRef.text = number.ToString();
+    }
+
+    public void changeTextCamera(bool close)
+    {
+        if (close)
+        {
+            changeViewRef.text = "Eyes in the skies";
+        }
+        else
+        {
+            changeViewRef.text = "Boots on the ground";
+        }
     }
 
 }

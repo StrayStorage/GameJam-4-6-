@@ -21,7 +21,6 @@ public class AttachToPlayer : MonoBehaviour
 
 
     public Vector3 cacheOriginalPosition;
-    public TextMeshProUGUI textBox;
 
     private void Start()
     {
@@ -47,14 +46,7 @@ public class AttachToPlayer : MonoBehaviour
     public void ResetToOrigin()
     {
         enableFollow = !enableFollow;
-        if(enableFollow)
-        {
-            textBox.text = "Eyes in the skies";
-        }
-        else
-        {
-            textBox.text = "Boots on the ground";
-        }
+        SelectTowerSpawn.Instance.changeTextCamera(enableFollow);
         
         Vector3 position = this.transform.position;
 
