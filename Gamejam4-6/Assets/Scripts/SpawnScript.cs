@@ -47,10 +47,6 @@ public class SpawnScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp("p"))
-        {
-            StartWave(currentWaveNumber);
-        }
         if(safeToCountdown)
         {
             targetTime -= Time.deltaTime;
@@ -101,6 +97,11 @@ public class SpawnScript : MonoBehaviour
             ResetWaves();
         }
         
+    }
+
+    public void StartWaves()
+    {
+        StartWave(currentWaveNumber);
     }
 
     void ResetWaves()
