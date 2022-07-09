@@ -48,7 +48,7 @@ CharacterController:
   m_Radius: 0.1
   m_SlopeLimit: 0
   m_StepOffset: 0
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6311028662210579739
@@ -63,8 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b164a9c3a592a034cb447e721858b56b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  rotateSpeed: 1
+  anima: {fileID: 504353165776925408}
 --- !u!1001 &6311028663323889521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,7 +130,7 @@ PrefabInstance:
     - target: {fileID: -2049929814205202405, guid: dfb2e7b5db7bebf49b1c7cd27f22e8e4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9043cb873f8f48c4faa0b3b684f7a002, type: 2}
+      objectReference: {fileID: 2100000, guid: e2adb8d73e8578448911415e89fb9cbc, type: 2}
     - target: {fileID: 919132149155446097, guid: dfb2e7b5db7bebf49b1c7cd27f22e8e4, type: 3}
       propertyPath: m_Name
       value: characterMedium
@@ -140,10 +139,19 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: b764ec18ffea9e44187d9d34a09e655f, type: 2}
+    - target: {fileID: 5866666021909216657, guid: dfb2e7b5db7bebf49b1c7cd27f22e8e4, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfb2e7b5db7bebf49b1c7cd27f22e8e4, type: 3}
 --- !u!4 &5773612921389574298 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dfb2e7b5db7bebf49b1c7cd27f22e8e4, type: 3}
+  m_PrefabInstance: {fileID: 6311028663323889521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &504353165776925408 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: dfb2e7b5db7bebf49b1c7cd27f22e8e4, type: 3}
   m_PrefabInstance: {fileID: 6311028663323889521}
   m_PrefabAsset: {fileID: 0}

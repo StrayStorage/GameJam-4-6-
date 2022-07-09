@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerBehaviour : MonoBehaviour
 {
@@ -11,11 +12,12 @@ public class TowerBehaviour : MonoBehaviour
     }
     public TOWERTYPE towerType;
 
-
     [Header("LiveTowerProperties")]
     public bool rotationReached;
     public Transform updatedTarget;
     public float distanceToTarget;
+    public float currentHealth;
+
 
     [Header("TowerProperties")]
     public float timeBeforeEachShot = 0.5f;
@@ -23,11 +25,18 @@ public class TowerBehaviour : MonoBehaviour
     public float maxShootingRange = 5;
     public float rotationSpeed = 5.0f;
     private float damage;
+    public float maxHealth;
+
 
     [Header("Projectile Properties")]
     private float projectileForce = 1000f;
     public Transform projectilePositionReference;
     public GameObject projectilePrefab;
+
+    [Header("Tower UI Properties")]
+    public GameObject canvasTower;
+    public Slider sliderVal;
+
 
     [Header("EnemyProperties")]
     [SerializeField]
@@ -38,16 +47,44 @@ public class TowerBehaviour : MonoBehaviour
     {
         distanceToTarget = maxShootingRange;
         cachedTimeBeforeEachShot = timeBeforeEachShot;
+
+        switch (towerType)
+        {
+            case TOWERTYPE.Arrow:
+                maxHealth = 100;
+                break;
+            case TOWERTYPE.Cannon:
+                maxHealth = 100;
+                break;
+            default:
+                maxHealth = 100;
+                break;
+        }
+        currentHealth = maxHealth;
+
+        canvasTower.name += " " + towerType;
+        canvasTower.transform.SetParent(null);
     }
 
     // Update is called once per frame
     void Update()
     {
+        HealthUpdate();
         RangeCheck();
         RotateTowardsTarget();
         Shoot();
     }
 
+    void HealthUpdate()
+    {
+        float newVal = currentHealth / maxHealth;
+
+        sliderVal.value = newVal;
+    }
+    public void TakeDamage(float takenDmg)
+    {
+        currentHealth -= takenDmg;
+    }
     void RangeCheck()
     {
         Collider[] hitColliderList = Physics.OverlapSphere(transform.position, maxShootingRange, enemyLayerMask);
@@ -91,7 +128,7 @@ public class TowerBehaviour : MonoBehaviour
 
         Gizmos.DrawWireSphere(transform.position, maxShootingRange);
     }
-
+    
     void RotateTowardsTarget()
     {
         if (updatedTarget != null)
@@ -147,7 +184,7 @@ public class TowerBehaviour : MonoBehaviour
 
 
 
-                SoundController.Instance.PlaySoundEffect(0);
+                //SoundController.Instance.PlaySoundEffect(0);
 
 
                 timeBeforeEachShot = cachedTimeBeforeEachShot;
@@ -162,5 +199,10 @@ public class TowerBehaviour : MonoBehaviour
             }
 
         }
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(canvasTower);
     }
 }
