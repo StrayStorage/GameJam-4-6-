@@ -24,14 +24,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885036997896718463}
-  m_LocalRotation: {x: 0.50000083, y: -0, z: -0, w: 0.866025}
+  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
   m_LocalPosition: {x: -2, y: 12.49, z: -1.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 885036997974479209}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!114 &885036997896718457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,12 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableFollow: 0
   objectToFollow: {fileID: 0}
-  speed: 2
+  speed: 5
   yOffset: 2.5
   xOffset: 0.2
   zOffset: -1.5
   cacheOriginalPosition: {x: 0, y: 0, z: 0}
-  textBox: {fileID: 0}
 --- !u!1 &885036997974479212
 GameObject:
   m_ObjectHideFlags: 0
