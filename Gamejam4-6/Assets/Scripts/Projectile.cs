@@ -39,7 +39,9 @@ public class Projectile : MonoBehaviour
                     if (other.gameObject.GetComponent<EnemyScript>())
                     {
                         other.gameObject.GetComponent<EnemyScript>().damageFunction(1);
-                        GameObject newParticleObj = Instantiate(hitVisualList[0], this.transform.position, Quaternion.identity) as GameObject;
+                        //GameObject newParticleObj = Instantiate(hitVisualList[0], this.transform.position, Quaternion.identity) as GameObject;
+
+                        ParticleSystemController.Instance.SpawnParticle(2, this.transform.position);
 
                     }
                     Destroy(this.gameObject);
@@ -49,7 +51,8 @@ public class Projectile : MonoBehaviour
                     if (other.gameObject.GetComponent<EnemyScript>())
                     {
                         other.gameObject.GetComponent<EnemyScript>().damageFunction(2);
-                        GameObject newParticleObj = Instantiate(hitVisualList[1], this.transform.position, Quaternion.identity) as GameObject;
+                        //GameObject newParticleObj = Instantiate(hitVisualList[1], this.transform.position, Quaternion.identity) as GameObject;
+                        ParticleSystemController.Instance.SpawnParticle(0, this.transform.position);
                     }
                     break;
                 default:

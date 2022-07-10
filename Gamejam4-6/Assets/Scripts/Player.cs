@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
     [Header("Player UI Properties")]
     public Slider sliderVal;
 
+
+    public GameObject slashingObject;
+    public Animator slashingObjAnima;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -35,6 +38,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Attack();
+        }
+        
         HealthUpdate();
 
         if (cameraFollowRef.enableFollow)
@@ -51,7 +59,6 @@ public class Player : MonoBehaviour
 
         lr.SetPosition(0, this.transform.position);
         lr.SetPosition(1, mouseWorldPos);
-
 
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * playerSpeed);
@@ -97,4 +104,12 @@ public class Player : MonoBehaviour
         GUILayout.EndArea();
     }
     */
+
+    public void Attack()
+    {
+        Debug.Log("OMAE WA MO SHINDEIRU");
+        slashingObjAnima.SetBool("Slash", true);
+        //slashingObject
+
+    }
 }

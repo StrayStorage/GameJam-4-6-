@@ -111,7 +111,7 @@ public class TowerBehaviour : MonoBehaviour
 
         if (updatedTarget != null)
         {
-            //checks if the current target is getting further away
+            //checks if the current target is getting further away and if it exits the physics overlap sphere
             if (Vector3.Distance(updatedTarget.gameObject.transform.position, this.transform.position) > distanceToTarget || hitColliderList.Length == 0)
             {
                 updatedTarget = null;
