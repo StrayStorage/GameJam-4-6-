@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 2652119117424412290}
   - component: {fileID: -7213831958051516560}
   - component: {fileID: 1561050334980066579}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: prefab_CrossbowTower
   m_TagString: Tower
   m_Icon: {fileID: 0}

@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 6756010967934629509}
   - component: {fileID: 8948483646598003388}
   - component: {fileID: -3466673935669967274}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: prefab_CannonTower
   m_TagString: Tower
   m_Icon: {fileID: 0}

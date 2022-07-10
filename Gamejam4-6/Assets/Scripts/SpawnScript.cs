@@ -138,6 +138,7 @@ public class SpawnScript : MonoBehaviour
     {
         GameObject thisEnemy = Instantiate(enemy, this.transform);
         thisEnemy.GetComponent<EnemyScript>().queueNum = currNum;
+        thisEnemy.GetComponent<EnemyScript>().theChild.GetComponent<Animator>().SetBool("Spawn", true);
         areYouAlive[currNum] = true;
         currNum += 1;
         spawnTime = currentWave.timeBetweenSpawn;

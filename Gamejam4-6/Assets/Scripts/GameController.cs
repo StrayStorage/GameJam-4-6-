@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //A way to start the waves
         if (Input.GetKeyUp("p"))
         {
             StartTheWaves();
@@ -50,6 +51,7 @@ public class GameController : MonoBehaviour
 
     }
 
+    //Function to call to minus the player life aka a leak
     public void minusLife(int number)
     {
         playerLife -= 1;
@@ -60,18 +62,20 @@ public class GameController : MonoBehaviour
         }
     }
 
+    //Function to call to minus the total enemies spawn
     public void minusEnemies(int number)
     {
         totalEnemies -= 1;
         SelectTowerSpawn.Instance.EnemiesUpdate(totalEnemies);
     }
 
-
+    //Function to start wave
     public void StartTheWaves()
     {
         SpawnScript.Instance.StartWaves();
     }
 
+    
     public void UpdateTheEnemies()
     {
         SelectTowerSpawn.Instance.EnemiesUpdate(totalEnemies);

@@ -77,9 +77,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2db9b9017b5a2c64e84ae8f78008b54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  queueNum: 0
+  stopBool: 0
+  attackBool: 0
+  theChild: {fileID: 2719646072721323472}
+  currCooldownStatus: 0
   enemyHp: 5
   minusHp: 1
-  queueNum: 0
+  maxDetection: 2
+  attackTime: 3
+  cooldownTime: 5
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!195 &5284827431378241543
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -177,8 +187,17 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: b764ec18ffea9e44187d9d34a09e655f, type: 2}
+    - target: {fileID: 5866666021909216657, guid: dfb2e7b5db7bebf49b1c7cd27f22e8e4, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfb2e7b5db7bebf49b1c7cd27f22e8e4, type: 3}
+--- !u!1 &2719646072721323472 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: dfb2e7b5db7bebf49b1c7cd27f22e8e4, type: 3}
+  m_PrefabInstance: {fileID: 2990238834355734657}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3383838418598850410 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dfb2e7b5db7bebf49b1c7cd27f22e8e4, type: 3}

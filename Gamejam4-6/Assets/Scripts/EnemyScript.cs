@@ -11,9 +11,31 @@ public class EnemyScript : MonoBehaviour
     private int currentNumber;
     private int maxNumber;
     private List<GameObject> theWaypoints;
+    private GameObject targetGO;
+    
+    private float currAttackTime;
+    private float currCDTime;
+    
+
+    [Header("References")]
+    public int queueNum;
+    public bool stopBool;
+    public bool attackBool;
+    public GameObject theChild;
+    public bool currCooldownStatus;
+
+    [Header("Stats")]
     public int enemyHp;
     public int minusHp = 1;
-    public int queueNum;
+    public float maxDetection;
+
+    public float attackTime;
+    public float cooldownTime;
+
+
+
+    [SerializeField]
+    private LayerMask targetLayerMask;
 
     // Start is called before the first frame update
     void Start()
@@ -22,13 +44,24 @@ public class EnemyScript : MonoBehaviour
         theWaypoints = WaypointSystem.Instance.theWaypoints;
         maxNumber = theWaypoints.Count;
         currentNumber = 0;
-        startMoving(currentNumber);
+        stopBool = false;
+        attackBool = false;
+        currCooldownStatus = false;
     }
+    
 
     public void startMoving(int number)
     {
         agent.destination = theWaypoints[number].transform.position;
     }
+
+    public void StopMoving(bool toMove)
+    {
+            stopBool = toMove;
+            agent.isStopped = stopBool;
+
+    }
+    
 
     public void assignQNum(int qNumber)
     {
@@ -37,11 +70,20 @@ public class EnemyScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Flag" && currentNumber != maxNumber - 1 )
+        if (other.gameObject.tag == "Flag" )
         {
-            currentNumber += 1;
-            startMoving(currentNumber);
+            if(currentNumber != maxNumber - 1)
+            {
+                currentNumber += 1;
+                startMoving(currentNumber);
+            }
+                
         }
+    }
+
+    public void StartAttackTimer()
+    {
+        currAttackTime = attackTime;
     }
 
     public void damageFunction(int number)
@@ -63,5 +105,75 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!attackBool && !currCooldownStatus)
+        {
+            
+            RangeCheck();
+        }
+        if (attackBool && currAttackTime > 0)
+        {
+            currAttackTime -= Time.deltaTime;
+        }
+        else if(attackBool && currAttackTime < 0)
+        {
+            currAttackTime = 0.0f;
+            attackBool = false;
+            theChild.GetComponent<Animator>().SetBool("Attack", false);
+            currCooldownStatus = true;
+            currCDTime = cooldownTime;
+        }
+        if (currCooldownStatus)
+        {
+            currCDTime -= Time.deltaTime;
+            if(currCDTime < 0)
+            {
+                currCDTime = cooldownTime;
+                currCooldownStatus = false;
+                Debug.Log("Cooldown over");
+            }
+        }
+        //A way to start the waves
+        if (Input.GetKeyUp("x"))
+        {
+            attackBool = !attackBool;
+            theChild.GetComponent<Animator>().SetBool("Attack", attackBool);
+        }
+        
+    }
+    void RangeCheck()
+    {
+        targetGO = null; 
+        Collider[] hitColliderList = Physics.OverlapSphere(transform.position, maxDetection, targetLayerMask);
+        for (int i = 0; i <hitColliderList.Length; i++)
+        {
+            if (hitColliderList[i].tag == "Player")
+            {
+                SetAttackTarget(hitColliderList[i].gameObject);
+            }
+            else if (hitColliderList[i].tag == "Tower")
+            {
+                SetAttackTarget(hitColliderList[i].gameObject);
+            }
+        }
+        if (targetGO == null)
+        {
+                attackBool = false;
+                theChild.GetComponent<Animator>().SetBool("Attack", attackBool);
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(transform.position, maxDetection);
+    }
+
+    void SetAttackTarget(GameObject target)
+    {
+        attackBool = true;
+        theChild.GetComponent<Animator>().SetBool("Attack", attackBool);
+        targetGO = target;
     }
 }
